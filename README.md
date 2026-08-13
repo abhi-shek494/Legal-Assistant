@@ -65,24 +65,17 @@ Open **http://localhost:8000** in your browser!
 
 ---
 
-## 📁 Repository Structure & What to Upload
+## 📁 Project Structure
 
-If you are pushing this project to GitHub, **only upload the code and configuration files**. Do not upload database binaries or secret keys directly to Git.
-
-### ✅ Upload to GitHub:
-- [`app.py`](app.py) — Chainlit frontend UI & event handlers.
-- [`legal_rag_system.py`](legal_rag_system.py) — Core RAG logic, hybrid retriever, reranker, and LCEL chain.
-- [`ingest_pdfs.py`](ingest_pdfs.py) — PDF text cleaner, metadata extractor, and Chroma indexer.
-- [`requirements.txt`](requirements.txt) — Project dependencies.
-- [`chainlit.md`](chainlit.md) — Chainlit welcome panel.
-- [`.gitignore`](.gitignore) — Excludes secrets and binary database folders.
-- [`README.md`](README.md) — Documentation.
-
-### ❌ Do NOT Upload (Ignored by `.gitignore`):
-- `.env` — **Contains your private API keys.**
-- `chroma_legal_db/` — Vector database directory (Upload to GitHub Releases instead).
-- `__pycache__/` — Python bytecode cache.
-- `archive/` — Raw PDF storage.
+```text
+Legal-Assistant/
+├── app.py                # Chainlit UI frontend & event handlers
+├── legal_rag_system.py   # Core RAG backend (hybrid search, reranker, LCEL chain)
+├── ingest_pdfs.py        # PDF text cleaning, metadata parsing & vector store creation
+├── requirements.txt      # Project dependencies
+├── chainlit.md           # Chainlit welcome panel text
+└── README.md             # Project documentation
+```
 
 ---
 
