@@ -1,6 +1,6 @@
 # ⚖️ Legal RAG Assistant — Indian Supreme Court Precedents
 
-An intelligent, grounded AI legal research assistant designed to search and analyze Indian Supreme Court case laws (1950–2024). Built with **LangChain**, **ChromaDB**, **Sentence-Transformers (BGE)**, and **Google Gemini**, with a real-time interactive UI powered by **Chainlit**.
+An intelligent, grounded AI legal research assistant designed to search and analyze Indian Supreme Court case laws (2021–2025). Built with **LangChain**, **ChromaDB**, **Sentence-Transformers (BGE)**, and **Google Gemini**, with a real-time interactive UI powered by **Chainlit**.
 
 ---
 
