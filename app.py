@@ -42,17 +42,17 @@ async def on_chat_start():
     cl.user_session.set("retriever", retriever)
     cl.user_session.set("rag_chain", rag_chain)
     
-    welcome_text = """## ⚖️ Legal Assistant — Ready
+    welcome_text = """## ⚖️ Legal RAG Assistant — Ready
 
-**Hybrid Search** (BM25 + Semantic) · **Cross-Encoder Reranking** · **Gemini**
+**Hybrid Search** · **Cross-Encoder Reranking** · **Grounded Gemini Responses**
 
 ---
 
 💬 **Try asking:**
 
-- *Is a delay in email delivery a breach of contract?*
-- *Are there cases about AI hiring discrimination and Title VII?*
-- *What is the law on warrantless access to cloud-stored emails?*
+- *Summarize a Supreme Court judgment and its key legal principles.*
+- *Find precedents involving constitutional rights and due process.*
+- *Compare cases with similar facts and legal issues.*
 
 > 📌 Every answer cites the specific cases it draws from — click on sources in the side panel to verify.
 """

@@ -1,83 +1,135 @@
-# ⚖️ Legal RAG Assistant — Indian Supreme Court Precedents
+# Legal RAG Assistant
 
-An intelligent, grounded AI legal research assistant designed to search and analyze Indian Supreme Court case laws (2021–2025). Built with **LangChain**, **ChromaDB**, **Sentence-Transformers (BGE)**, and **Google Gemini**, with a real-time interactive UI powered by **Chainlit**.
+An interactive AI-powered legal research assistant for exploring Indian Supreme Court judgments. The project combines keyword search, semantic retrieval, cross-encoder reranking, and grounded generation to provide answers with traceable source excerpts.
 
----
-
-## ✨ Features
-
-- **Hybrid Search**: Combines BM25 keyword matching (for exact legal citations/statutes) with dense vector search (for semantic understanding).
-- **Cross-Encoder Reranking**: Re-scores search candidates using `BAAI/bge-reranker-base` so only the top, most relevant precedents are passed to the LLM.
-- **Verifiable Citations**: Every answer includes clickable source links in the UI so you can inspect court names, decision dates, and exact case excerpts.
-- **Fallback Reasoning**: Answers from verified database precedents when available, or falls back gracefully to general Indian law knowledge (IPC/BNS, IT Act, etc.).
+**Tech stack:** Python, LangChain, ChromaDB, BGE embeddings, BM25, Hugging Face cross-encoders, Google Gemini, and Chainlit.
 
 ---
 
-## 📊 Dataset
+## Key Features
 
-The vector database was generated from the public Kaggle dataset:
-👉 **[Legal Dataset - SC Judgments India (1950–2024)](https://www.kaggle.com/datasets/adarshsingh0903/legal-dataset-sc-judgments-india-19502024)**
+- **Hybrid retrieval:** Combines BM25 keyword matching with dense vector similarity.
+- **Cross-encoder reranking:** Uses `BAAI/bge-reranker-base` to prioritize relevant precedents.
+- **Grounded responses:** Generates answers from retrieved case content using Google Gemini.
+- **Source transparency:** Displays case metadata and clickable source excerpts beside each response.
+- **PDF ingestion:** Cleans and chunks Indian Kanoon PDFs, then creates a persistent ChromaDB collection.
+- **Interactive UI:** Provides real-time retrieval and generation steps through Chainlit.
 
 ---
 
-## 🚀 Quickstart Guide
+## Architecture
 
-### 1. Clone the Repository
+```text
+PDF judgments
+  -> text cleaning and chunking
+  -> BGE embeddings
+  -> ChromaDB vector store
+
+User query
+  -> BM25 + vector retrieval
+  -> ensemble ranking
+  -> cross-encoder reranking
+  -> Gemini grounded response
+  -> cited UI sources
+```
+
+---
+
+## Dataset
+
+The vector database can be generated from the public [Legal Dataset - SC Judgments India (1950-2024)](https://www.kaggle.com/datasets/adarshsingh0903/legal-dataset-sc-judgments-india-19502024).
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
 ```bash
-git clone https://github.com/yadavkrish18/Legal-Assistant.git
+git clone https://github.com/abhi-shek494/Legal-Assistant.git
 cd Legal-Assistant
 ```
 
-### 2. Set Up Virtual Environment & Install Dependencies
+### 2. Create an environment and install dependencies
+
 ```bash
-# Create environment
 python -m venv venv
+```
 
-# Activate environment
-# On Windows:
-venv\Scripts\activate
-# On Linux/macOS:
+Activate the environment:
+
+```powershell
+# Windows PowerShell
+venv\Scripts\Activate.ps1
+```
+
+```bash
+# Linux or macOS
 source venv/bin/activate
+```
 
-# Install requirements
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 3. Add Your Gemini API Key
-Create a `.env` file in the root folder:
+### 3. Configure Google Gemini
+
+Create a `.env` file in the project directory:
+
 ```env
-GOOGLE_API_KEY=your_actual_google_gemini_api_key
+GOOGLE_API_KEY=your_google_gemini_api_key
 ```
 
-### 4. Download the Pre-Embedded Vector Database
-Embedding 122k+ case chunks takes 1–2 hours. To skip this:
-1. Go to the [**Releases**](https://github.com/yadavkrish18/Legal-Assistant/releases) tab of this repository.
-2. Download `chroma_legal_db.zip`.
-3. Extract `chroma_legal_db.zip` into the root directory of this project so that `./chroma_legal_db/` exists.
+Keep API keys out of source control.
 
-*(Optional: If you want to embed raw PDFs yourself, place your PDFs inside `./archive/supreme_court_judgments/` and run `python ingest_pdfs.py`)*
+### 4. Prepare the vector database
 
-### 5. Launch the App
+For prebuilt data, download `chroma_legal_db.zip` from the repository [Releases](https://github.com/abhi-shek494/Legal-Assistant/releases), extract it, and confirm that `./chroma_legal_db/` exists.
+
+To build it from PDFs:
+
+1. Place judgment PDFs under `./archive/supreme_court_judgments/`.
+2. Run `python ingest_pdfs.py`.
+
+### 5. Run the application
+
 ```bash
 python -m chainlit run app.py -w
 ```
-Open **http://localhost:8000** in your browser!
+
+Open `http://localhost:8000`.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 Legal-Assistant/
-├── app.py                # Chainlit UI frontend & event handlers
-├── legal_rag_system.py   # Core RAG backend (hybrid search, reranker, LCEL chain)
-├── ingest_pdfs.py        # PDF text cleaning, metadata parsing & vector store creation
-├── requirements.txt      # Project dependencies
-├── chainlit.md           # Chainlit welcome panel text
-└── README.md             # Project documentation
+├── app.py                # Chainlit interface and chat event handlers
+├── legal_rag_system.py   # Retrieval, reranking, and RAG chain
+├── ingest_pdfs.py        # PDF parsing and vector database ingestion
+├── requirements.txt      # Python dependencies
+├── chainlit.md           # Chainlit welcome screen
+├── .chainlit/config.toml # Chainlit configuration
+└── README.md
 ```
 
 ---
 
-## 📜 License
-MIT License. Free for educational and research use.
+## Contributing
+
+This project was developed collaboratively. Contributions are welcome through issues and pull requests.
+
+---
+
+## Disclaimer
+
+This application is an educational legal research aid and not a substitute for advice from a qualified legal professional. AI-generated answers should always be verified against the cited judgments and current law.
+
+---
+
+## License
+
+MIT License.
